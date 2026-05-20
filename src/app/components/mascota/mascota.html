@@ -1,69 +1,72 @@
 <div class="container">
-    <h1>Mantenimiento Mascotas</h1>
-    <div class="card">
-        <div class="card-body">
-
-            <h5 class="card-title">Datos de la Mascota</h5>
-            <form>
-                <input type="hidden" id="idMascota" />
-
-                <div class="mb-3">
-                    <label for="nombre" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" id="nombre" placeholder="Nombre"
-                        aria-describedby="nombreHelp">
-                    <div id="nombreHelp" class="form-text">Ingrese el nombre de la mascota</div>
-                </div>
-                <div class="mb-3">
-                    <label for="edad" class="form-label">Edad</label>
-                    <input type="number" min="0" max="30" class="form-control" id="edad" placeholder="Edad"
-                        aria-describedby="edadHelp">
-                    <div id="edadHelp" class="form-text">Ingrese la edad de la mascota</div>
-                </div>
-                <button type="submit" class="btn btn-success">Guardar</button>
-
-            </form><br>
-            <h2>Listado de mascotas</h2><br>
-            <table class="table table-hover">
-                <!--Aqui inicia la tabla-->
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Edad</th>
-                        <th scope="col">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>15</td>
-                        <td>
-                            <button type="button" class="btn btn-primary" style="margin-right: 10px;">Editar</button>
-                            <button type="button" class="btn btn-danger">Eliminar</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>12</td>
-                        <td>
-                            <button type="button" class="btn btn-primary" style="margin-right: 10px;">Editar</button>
-                            <button type="button" class="btn btn-danger">Eliminar</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>John</td>
-                        <td>5</td>
-                        <td>
-                            <button type="button" class="btn btn-primary" style="margin-right: 10px;">Editar</button>
-                            <button type="button" class="btn btn-danger">Eliminar</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
-        </div>
+  <h1>Mantenimiento de mascotas</h1>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Datos de la Mascota</h5>
+      <!-- <form> -->
+      <input type="hidden" id="idMascota" [(ngModel)]="mascota.id" />
+      <!-- Boton oculto -->
+      <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="nombre"
+          aria-describedby="nombreHelp"
+          [(ngModel)]="mascota.nombre"
+        />
+        <div id="nombreHelp" class="form-text">Ingrese el nombre de la mascota.</div>
+      </div>
+      <div class="mb-3">
+        <label for="edad" class="form-label">Edad:</label>
+        <input
+          type="number"
+          class="form-control"
+          id="edad"
+          aria-describedby="edadHelp"
+          [(ngModel)]="mascota.edad"
+        />
+        <div id="edadHelp" class="form-text">Ingrese la edad de la mascota (en años).</div>
+      </div>
+      <button type="button" class="btn btn-success" (click)="guardar()">
+        {{ enEdicion ? 'Editar' : 'Guardar' }}
+      </button>
+      <!-- </form> -->
+      <br />
+      <h2>Listado de las mascotas</h2>
+      <!-- Aqui inicia la tabla -->
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Edad</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (mascota of mascotas; track mascota.id) {
+            <tr>
+              <th scope="row">{{ mascota.id }}</th>
+              <td>{{ mascota.nombre }}</td>
+              <td>{{ mascota.edad }}</td>
+              <td>
+                <button
+                  type="button"
+                  class="btn btn-info"
+                  style="margin-right: 10px"
+                  (click)="actualizar(mascota)"
+                >
+                  Editar
+                </button>
+                <button type="button" class="btn btn-danger" (click)="eliminar(mascota.id)">
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
     </div>
+  </div>
 </div>
